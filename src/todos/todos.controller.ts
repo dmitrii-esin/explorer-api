@@ -6,20 +6,24 @@ import {
   Param,
   Post,
   Put,
+  UseFilters,
 } from '@nestjs/common';
-
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { TodosService } from './todos.service';
 import { Todo } from './interfaces/todo.interface';
+import { ForbiddenException } from '../exceptions/forbidden.exception';
+import { HttpExceptionFilter } from '../exceptions/http-exception.filter';
 
 @Controller('todos')
 export class TodosController {
   constructor(private readonly todosService: TodosService) {}
 
   @Post()
+  @UseFilters(HttpExceptionFilter)
   async create(@Body() createTodoDto: CreateTodoDto) {
-    this.todosService.create(createTodoDto);
+    throw new ForbiddenException();
+    // this.todosService.create(createTodoDto);
   }
 
   @Get()
