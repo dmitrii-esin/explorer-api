@@ -7,18 +7,9 @@ import { Todo } from './interfaces/todo.interface';
 export class TodosService {
   private readonly todos: Todo[] = [];
 
-  //TODO: разобраться как правильно работать с dto
-  // create(createTodoDto: CreateTodoDto) {
-  //   return 'This action adds a new todo';
-  // }
-
-  create(todo: Todo) {
+  create(todo: CreateTodoDto) {
     this.todos.push(todo);
   }
-
-  // findAll() {
-  //   return `This action returns all todos`;
-  // }
 
   findAll(): Todo[] {
     return this.todos;

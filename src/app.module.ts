@@ -3,7 +3,7 @@ import * as helmet from 'helmet';
 // import * as csurf from 'csurf';
 import * as rateLimit from 'express-rate-limit';
 import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser';
-import { logger } from './middlewares/logger.middleware';
+import { logger } from './common/middlewares/logger.middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TodosModule } from './todos/todos.module';
