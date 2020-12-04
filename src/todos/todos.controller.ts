@@ -12,7 +12,6 @@ import {
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { TodosService } from './todos.service';
-import { Todo } from './todo.interface';
 import { ValidationPipe } from '../common/pipes/validation.pipe';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { HttpExceptionFilter } from '../common/exceptions/http-exception.filter';
@@ -21,24 +20,24 @@ import { HttpExceptionFilter } from '../common/exceptions/http-exception.filter'
 export class TodosController {
   constructor(private readonly todosService: TodosService) {}
 
-  @Post()
   @UseFilters(HttpExceptionFilter)
   @UseGuards(RolesGuard)
-  async create(@Body(new ValidationPipe()) todo: CreateTodoDto): Promise<Todo> {
-    return this.todosService.create(todo);
+  @Post()
+  async create(@Body() createTodoDto: CreateTodoDto) {
+    return this.todosService.create(createTodoDto);
   }
 
   @Get()
   @UseFilters(HttpExceptionFilter)
   @UseGuards(RolesGuard)
-  async findAll(): Promise<Todo[]> {
+  findAll() {
     return this.todosService.findAll();
   }
 
   @Get(':id')
   @UseFilters(HttpExceptionFilter)
   @UseGuards(RolesGuard)
-  async findOne(@Param('id') id: string): Promise<Todo> {
+  findOne(@Param('id') id: string) {
     return this.todosService.findOne(id);
   }
 
@@ -48,14 +47,14 @@ export class TodosController {
   async update(
     @Param('id') id: string,
     @Body(new ValidationPipe()) todo: UpdateTodoDto,
-  ): Promise<Todo> {
+  ) {
     return this.todosService.update(id, todo);
   }
 
   @Delete(':id')
   @UseFilters(HttpExceptionFilter)
   @UseGuards(RolesGuard)
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string): Promise<void> {
     return this.todosService.remove(id);
   }
 }
