@@ -20,7 +20,6 @@ const rateLimitMiddlewareOptions = rateLimit({
 
 @Module({
   imports: [
-    TodosModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
@@ -33,6 +32,7 @@ const rateLimitMiddlewareOptions = rateLimit({
       }),
     }),
     DatabaseModule,
+    TodosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
